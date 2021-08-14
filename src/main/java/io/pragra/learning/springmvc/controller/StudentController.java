@@ -15,6 +15,11 @@ public class StudentController {
 
     private final StudentService service;
 
+    @GetMapping("/")
+    public String home(){
+        return "index";
+    }
+
     @GetMapping("/student")
     public String getAllStudent(Model model){
         model.addAttribute("students", service.getAll());

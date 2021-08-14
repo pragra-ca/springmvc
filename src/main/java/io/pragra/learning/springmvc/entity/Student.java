@@ -1,5 +1,7 @@
 package io.pragra.learning.springmvc.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,7 +24,10 @@ public class Student {
     private String firstName;
     private String lastName;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyyDDmmHHmmSS")
     private Instant createTime;
+
+    @JsonIgnore
     private Instant updateTime;
 
     @OneToMany

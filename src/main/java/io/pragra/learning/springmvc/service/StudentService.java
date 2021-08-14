@@ -2,8 +2,8 @@ package io.pragra.learning.springmvc.service;
 
 import io.pragra.learning.springmvc.entity.Course;
 import io.pragra.learning.springmvc.entity.Student;
+import io.pragra.learning.springmvc.exceptions.StudentNotFoundException;
 import io.pragra.learning.springmvc.repo.StudentRepo;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -34,5 +34,11 @@ public class StudentService {
 
     public void delete(Long id){
          repo.deleteById(id);
+    }
+
+    public Optional<Student> findById(Long id) {
+        if(!repo.findById(id).isPresent())
+            throw new StudentNotFoundException("No student could be located for id"+ id);
+        return repo.findById(id);
     }
 }
