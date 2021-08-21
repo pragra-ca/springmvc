@@ -10,12 +10,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -28,7 +24,10 @@ public class StudentRestController {
     private final StudentService service;
 
     @GetMapping("/student")
-    public List<Student> getAllstudent(){
+    public List<Student> getAllstudent(@RequestParam(value = "lastName",required = false) String lastName){
+        if( null !=lastName ){
+            return service.findByLastName(lastName);
+        }
         return service.getAll();
     }
 
@@ -51,4 +50,9 @@ public class StudentRestController {
         }
         return ResponseEntity.status(404).body(ErrorMessage.builder().errCode("APP404").desc("No Record Found for the id").timeOfError(new Date()));
     }
+
+
+
+
+
 }

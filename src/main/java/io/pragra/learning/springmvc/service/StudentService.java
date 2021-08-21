@@ -41,4 +41,8 @@ public class StudentService {
             throw new StudentNotFoundException("No student could be located for id"+ id);
         return repo.findById(id);
     }
+
+    public List<Student> findByLastName(String lastName) {
+        return repo.findAllByLastNameOrFirstName(lastName);
+    }
 }
